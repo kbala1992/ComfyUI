@@ -1,0 +1,17 @@
+services:
+  comfyui:
+    build: .
+    container_name: comfyui
+    restart: always
+    ports:
+      - "8188:8188"  # Port for the application
+    volumes:
+      - c:/comfyui_data:/app/data  # Mount a local directory for data if needed
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # Expose all GPUs if available
+      - COMFYUI_HOME=/app/data  # Optional: set a specific environment variable
+    runtime: nvidia  # Enable GPU support if NVIDIA drivers are installed
+    deploy:
+      resources:
+        limits:
+          memory: 4G  # Limit the container's memory
